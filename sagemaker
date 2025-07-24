@@ -1,0 +1,11 @@
+sagemaker = boto3.client('sagemaker')
+
+# Add in lambda_handler
+response = sagemaker.create_processing_job(
+    ProcessingJobName='VideoJob-'+file_key.split('.')[0],
+    RoleArn='YOUR_SAGEMAKER_ROLE',
+    ProcessingInputs=[...],  # your input config
+    ProcessingOutputConfig={...},  # your output config
+    AppSpecification={...},
+    ProcessingResources={...}
+)
