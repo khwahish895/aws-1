@@ -1,0 +1,30 @@
+pip install flask boto3
+
+from flask import Flask, request, render_template
+import boto3
+import os
+
+app = Flask(__name__)
+
+# S3 Setup
+s3 = boto3.client('s3')
+BUCKET = 'video-upload-bucket-123'
+
+@app.route('/')
+def index():
+    return '''
+        <h2>Upload Video</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="video"><br><br>
+            <input type="submit" value="Upload">
+        </form>
+    '''
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    video = request.files['video']
+    s3.upload_fileobj(video, BUCKET, video.filename)
+    return f"Uploaded {video.filename} to S3 bucket {BUCKET}"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
