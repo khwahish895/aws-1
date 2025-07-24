@@ -1,0 +1,5 @@
+A new video has been uploaded:
+
+File: mytrip.mp4
+Bucket: video-upload-bucket-123
+S3 Path: s3://video-upload-bucket-123/mytrip.mp4
